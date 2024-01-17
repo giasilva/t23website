@@ -24,4 +24,5 @@ body {
     height: 10px;
     background-color: white;
     box-shadow: 0 -5px 4px -4px #00000030;
+    box-shadow: 0 5px 4px -4px #00000030;
 }
