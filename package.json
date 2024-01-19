@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
+    "@pixi/graphics-extras": "^7.3.3",
     "pixi.js": "^7.3.3"
   }
 }
