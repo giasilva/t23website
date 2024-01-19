@@ -15,10 +15,10 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.container {
+.container { /* MENU BACKGROUND-DISPLAY */
   max-width: 100%;
-  width: 100%;
-  margin: auto;
+  width: 22%;
+  margin: 0;
 }
 
 .navbar {
@@ -43,7 +43,7 @@ body {
 
 .navbar .nav-container a {
   text-decoration: none;
-  color: #0e2431;
+  color: #0e2431; /* TEXT MENY CHOICES COLOR */
   font-weight: 500;
   font-size: 2rem;
   padding: 0.7rem;
