@@ -22,30 +22,25 @@ body {
 }
 
 .nav-container {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 62px;
-  
+  height: 62px;  
 }
 
-.navbar .menu-items {
-  display: flex;
-  flex-direction: column; /* Changes layout to vertical */
-  align-items: center; /* Centers items vertically */
-  justify-content: center; /* Centers items horizontally */
+.navbar .menu-items { /* MENY CHOICES */
+  /* display: flex;  */
   background-color: white;
-  min-width: 33vh;
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
-  height: 100vh;
-  min-height: 100vh;
-  width: 33vh;
-  transform: translateX(-150%);
-  position: fixed;
-  overflow: hidden;
-  transition: transform 0.5s ease-in-out;
-  text-align: center;
-  white-space: nowrap; /* Prevents text from wrapping */
+  width: 25vw;
+  min-width: 33vh; 
+  /* box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);    gör så att menyn är transparent */
+  height: 100vh; /*gör så att menyn är lika lång som sidan */
+  min-height: 100vh; /*gör så att menyn är lika lång som sidan */
+  transform: translateX(-150%); /*gör så att menyn är dold från början */
+  position: fixed; /*gör så att menyn inte scrollar med sidan */
+  transition: transform 0.5s ease-in-out; /*gör så att menyn glider in och ut */
+  justify-content: space-evenly; /*gör så att menyalternativen är jämnt fördelade */
+  text-align: center; /*gör så att texten är centrerad */
+  white-space: wrap; /*gör så att texten inte kommer utanför bakgrunden */
 }
 
 .navbar .menu-items a {
@@ -54,8 +49,6 @@ body {
   font-weight: 500;
   font-size: 2rem;
   padding: 0.7rem;
-  overflow: hidden; /* Prevents text from overflowing */
-  text-overflow: ellipsis; /* Adds ... when text overflows */
 }
 
 .navbar .menu-items a:hover {
@@ -101,8 +94,8 @@ body {
 .nav-container .hamburger-lines {
   display: block;
   height: 26px;
-  width: 32px;
-  position: absolute;
+  width: 32px; 
+  position: fixed;  /*gör så att meny ikonen stannar i bakgrunden när man skrollar */
   top: 17px;
   left: 20px;
   z-index: 2;
@@ -133,14 +126,24 @@ body {
   transition: transform 0.4s ease-in-out;
 }
 
+ @media screen and (max-height: 450px){
+  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
+    font-size: 1.5rem;
+  }
+ }
+@media screen and (max-height: 768px){
+  .navbar .menu-items { /* gör att man bara kan skrolla i menyn om valen inte får plats */
+    overflow-x: hidden; /*gör så att man inte kan scrolla horisontellt */
+    overflow-y: scroll; /*gör så att man kan scrolla vertikalt */
+  }
+}
 @media screen and (max-width: 768px){
-  .navbar .menu-items {
+  .navbar .menu-items { /* gör så att menyn blir mindre om skärmen är mindre */
    margin: 0% 0% 0% 0%;
    max-width: 100%;
    min-width: 100%;
-  
   }
-  .navbar .nav-container a {
+  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
     font-size: 1.5rem;
   }
 }
