@@ -22,6 +22,10 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+// stannar inloggad om man laddar om sidan
+import { browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+setPersistence(auth, browserLocalPersistence);
+
 // Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", function() {
     const signupButton = document.getElementById('signupButton');
