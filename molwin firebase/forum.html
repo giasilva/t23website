@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Page</title>
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+</head>
+<body>
+<h1>Login Page</h1>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button id="login">Login</button>
+<button id="signup">Sign Up</button>
+
+<script>
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyCTAqVWuqqaEaa3jcjtoVK-UEB2tMmNtPA",
+authDomain: "t23website.firebaseapp.com",
+databaseURL: "https://t23website-default-rtdb.europe-west1.firebasedatabase.app",
+projectId: "t23website",
+storageBucket: "t23website.appspot.com",
+messagingSenderId: "30855225277",
+appId: "1:30855225277:web:2d3ae19ea360c07d1cbcd4",
+measurementId: "G-EL3E583KQN"
+};
+
+
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+document.getElementById('login').addEventListener('click', () => {
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+auth.signInWithEmailAndPassword(email, password)
+.then((userCredential) => {
+alert('Logged in successfully');
+})
+.catch((error) => {
+alert('Error logging in: ' + error.message);
+});
+});
+
+document.getElementById('signup').addEventListener('click', () => {
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+auth.createUserWithEmailAndPassword(email, password)
+.then((userCredential) => {
+alert('User created successfully');
+})
+.catch((error) => {
+alert('Error creating user: ' + error.message);
+});
+});
+</script>
+</body>
+</html>
