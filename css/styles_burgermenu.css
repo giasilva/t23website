@@ -67,33 +67,31 @@ body {
 
 
 .navbar .menu-items a {
-  display: inline-block;
   text-decoration: none;
-  color: #0e2431; /* Adjust the color as needed */
+  color: #0e2431;
+  font-weight: 500;
+  font-size: 2rem;
   padding: 0.7rem;
-  position: relative;
 }
-
-.menu-items a i {
-  display: none; /* Initially hide the icons */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 
 .navbar .menu-items a:hover {
   font-weight: bolder;
 }
 
-.navbar .menu-items a:hover .text{
-  display: none;
+.navbar .nav-container li {
+  list-style: none;
+  font-size: 4em;
+
 }
 
-.menu-items a:hover i {
-  display: inline-block; /* Display the icon when hovering over the menu item */
+.navbar .nav-container a {
+  text-decoration: none;
+  color: #0e2431; /* TEXT MENY CHOICES COLOR */
+  font-weight: 500;
+  font-size: 2rem;
+  padding: 0.7rem;
 }
+
 
 .navbar .menu-items a.active {
   font-weight: bolder;
@@ -172,27 +170,8 @@ body {
   transition: transform 0.4s ease-in-out;
 }
 
- @media screen and (max-height: 450px){
-  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
-    font-size: 1.5rem;
-  }
- }
-@media screen and (max-height: 768px){
-  .navbar .menu-items { /* gör att man bara kan skrolla i menyn om valen inte får plats */
-    overflow-x: hidden; /*gör så att man inte kan scrolla horisontellt */
-    overflow-y: scroll; /*gör så att man kan scrolla vertikalt */
-  }
-}
-@media screen and (max-width: 768px){
-  .navbar .menu-items { /* gör så att menyn blir mindre om skärmen är mindre */
-   margin: 0% 0% 0% 0%;
-   max-width: 100%;
-   min-width: 100%;
-  }
-  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
-    font-size: 1.5rem;
-  }
-}
+ 
+
 .nav-container input[type="checkbox"]:checked ~ .menu-items {
   transform: translateX(0);
 }
@@ -211,4 +190,63 @@ body {
 
 .nav-container input[type="checkbox"]:checked ~ .logo{
   display: none;
+}
+
+@media screen and (max-height: 450px){
+  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
+    font-size: 1.5rem;
+  }
+ }
+
+@media screen and (max-height: 768px){
+  .navbar .menu-items { /* gör att man bara kan skrolla i menyn om valen inte får plats */
+    overflow-x: hidden; /*gör så att man inte kan scrolla horisontellt */
+    overflow-y: scroll; /*gör så att man kan scrolla vertikalt */
+  }
+}
+
+@media screen and (max-width: 768px){ /* små skärmar */
+  .navbar .menu-items { /* gör så att menyn blir mindre om skärmen är mindre */
+   margin: 0% 0% 0% 0%;
+   max-width: 100%;
+   min-width: 100%;
+   left: auto;
+   right: 0;
+  }
+  .menu-items a i {
+    display: none;
+  }
+@media screen and (max-width: 450px){
+  
+}
+  .navbar .nav-container a { /* gör så att texten i menyn blir mindre om skärmen är mindre */
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .menu-items a {
+    display: inline-block;
+    text-decoration: none;
+    color: #0e2431;
+    padding: 0.7rem;
+    position: relative;
+  }
+  
+  .menu-items a i {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .menu-items a:hover .text {
+    display: none;
+  }
+  
+  .menu-items a:hover i {
+    display: inline-block;
+  }
+  
 }
