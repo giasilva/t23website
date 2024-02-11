@@ -27,19 +27,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const signupButton = document.getElementById('signupButton');
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
+    const passwordInput = document.getElementById('password'); // Select the password input field
 
-    logoutButton.addEventListener('click',(e) => {
+    // Add event listeners to buttons
+    logoutButton.addEventListener('click', (e) => {
         e.preventDefault();
         logout(); // Call the logout function
     });
 
-    loginButton.addEventListener('click',(e) => {
+    loginButton.addEventListener('click', (e) => {
         e.preventDefault();
         login(); // Call the login function
     });
 
     // Attach event listener to the signup button
-    signupButton.addEventListener('click',(e) => {
+    signupButton.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent default form submission behavior
 
         var email = document.getElementById('email').value;
@@ -67,7 +69,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
     });
+
+    // Add event listener to password input for Enter key press
+    passwordInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            login(); // Call the login function when Enter key is pressed
+        }
+    });
 });
+
+// Rest of your code remains unchanged
+
 
 // Logout user
 function logout() {
@@ -110,10 +122,13 @@ function login() {
 
 
 // onAuthStateChanged listener
+// onAuthStateChanged listener
 onAuthStateChanged(auth, (user) => {
     const signupButton = document.getElementById('signupButton');
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
 
     if (user) {
         // User is signed in
@@ -122,6 +137,8 @@ onAuthStateChanged(auth, (user) => {
         // Hide login and signup buttons
         loginButton.style.display = 'none';
         signupButton.style.display = 'none';
+        emailInput.style.display = 'none'; // Hide email input
+        passwordInput.style.display = 'none'; // Hide password input
         
         // Show logout button
         logoutButton.style.display = 'block';
@@ -132,11 +149,14 @@ onAuthStateChanged(auth, (user) => {
         // Show login and signup buttons
         loginButton.style.display = 'block';
         signupButton.style.display = 'block';
+        emailInput.style.display = 'block'; // Show email input
+        passwordInput.style.display = 'block'; // Show password input
     
         // Hide logout button
         logoutButton.style.display = 'none';
     }
 });
+
 
 // Validate input fields 
 function validate(email, password) {
