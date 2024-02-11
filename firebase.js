@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, browserLocalPersistence, setPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,33 +20,50 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// stannar inloggad om man laddar om sidan
-import { browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-setPersistence(auth, browserLocalPersistence);
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "your-api-key",
+        authDomain: "your-auth-domain",
+        projectId: "your-project-id",
+        storageBucket: "your-storage-bucket",
+        messagingSenderId: "your-messaging-sender-id",
+        appId: "your-app-id",
+        measurementId: "your-measurement-id"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
 
-// Wait for the DOM to fully load
-document.addEventListener("DOMContentLoaded", function() {
-    const signupButton = document.getElementById('signupButton');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+    // Wait for the DOM to fully load
+    document.addEventListener("DOMContentLoaded", function() {
+        const signupButton = document.getElementById('signupButton');
+        const loginButton = document.getElementById('loginButton');
+        const logoutButton = document.getElementById('logoutButton');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
-    // Add event listeners for login, logout, and signup buttons
-    logoutButton.addEventListener('click', logout);
-    loginButton.addEventListener('click', login);
-    signupButton.addEventListener('click', signup);
+        // Add event listeners for login, logout, and signup buttons
+        logoutButton.addEventListener('click', logout);
+        loginButton.addEventListener('click', login);
+        signupButton.addEventListener('click', signup);
 
-    // Add event listener for Enter keypress on password input
-    passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            login(); // Call the login function when Enter key is pressed
-        }
+        // Add event listener for Enter keypress on password input
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login(); // Call the login function when Enter key is pressed
+            }
+        });
+
+        // Initialize the UI based on the user's authentication state
+        updateUI();
     });
-
-    // Initialize the UI based on the user's authentication state
-    updateUI();
-});
+  })
+  .catch((error) => {
+    console.error("Error setting persistence:", error);
+  });
 
 // Logout user
 function logout() {
