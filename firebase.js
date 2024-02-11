@@ -94,18 +94,19 @@ document.addEventListener("DOMContentLoaded", function() {
     function login() {
         var email = emailInput.value;
         var password = passwordInput.value;
-
+    
         // Validate input fields
         if (!validate(email, password)) {
             return; // Exit function if validation fails
         }
-
+    
         // Sign in user with email and password
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
                 alert('User logged in successfully');
+                updateUI(); // Update the UI
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -117,6 +118,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
     }
+    
+    function updateUI() {
+        const user = auth.currentUser;
+        if (user) {
+            // User is signed in
+            const uid = user.uid;
+            console.log("User is signed in with UID:", uid);
+            // Hide login and signup buttons
+            loginButton.style.display = 'none';
+            signupButton.style.display = 'none';
+            emailInput.style.display = 'none'; // Hide email input
+            passwordInput.style.display = 'none'; // Hide password input
+            
+            // Show logout button
+            logoutButton.style.display = 'block';
+        } else {
+            // User is signed out
+            console.log("User is signed out");
+            // Show login and signup buttons
+            loginButton.style.display = 'block';
+            signupButton.style.display = 'block';
+            emailInput.style.display = 'block'; // Show email input
+            passwordInput.style.display = 'block'; // Show password input
+            
+            // Hide logout button
+            logoutButton.style.display = 'none';
+        }
+    }
+    
 
     // onAuthStateChanged listener
     onAuthStateChanged(auth, (user) => {
