@@ -27,25 +27,25 @@ document.addEventListener("DOMContentLoaded", function() {
     const signupButton = document.getElementById('signupButton');
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
-    const passwordInput = document.getElementById('password'); // Select the password input field
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
 
-    // Add event listeners to buttons
-    logoutButton.addEventListener('click', (e) => {
+    logoutButton.addEventListener('click',(e) => {
         e.preventDefault();
         logout(); // Call the logout function
     });
 
-    loginButton.addEventListener('click', (e) => {
+    loginButton.addEventListener('click',(e) => {
         e.preventDefault();
         login(); // Call the login function
     });
 
     // Attach event listener to the signup button
-    signupButton.addEventListener('click', (e) => {
+    signupButton.addEventListener('click',(e) => {
         e.preventDefault(); // Prevent default form submission behavior
 
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
+        var email = emailInput.value;
+        var password = passwordInput.value;
 
         // Validate input fields
         if (!validate(email, password)) {
@@ -69,111 +69,101 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
     });
-
-    // Add event listener to password input for Enter key press
-    passwordInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            login(); // Call the login function when Enter key is pressed
+    
+    // Add event listener for the "keypress" event on the password input field
+    passwordInput.addEventListener('keypress', function(event) {
+        // Check if the Enter key is pressed (keyCode 13)
+        if (event.keyCode === 13) {
+            // Call the login function
+            login();
         }
     });
-});
 
-// Rest of your code remains unchanged
-
-
-// Logout user
-function logout() {
-    signOut(auth).then(() => {
-        // Sign-out successful
-        alert('User logged out successfully');
-    }).catch((error) => {
-        // An error happened
-        alert('An error occurred while logging out');
-    });
-}
-
-// Login user with email and password
-function login() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-
-    // Validate input fields
-    if (!validate(email, password)) {
-        return; // Exit function if validation fails
-    }
-
-    // Sign in user with email and password
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            alert('User logged in successfully');
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode === 'auth/invalid-credential') {
-                alert('Wrong password and/or e-mail.')
-            } else {
-                alert(errorMessage);
-            }
+    // Logout user
+    function logout() {
+        signOut(auth).then(() => {
+            // Sign-out successful
+            alert('User logged out successfully');
+        }).catch((error) => {
+            // An error happened
+            alert('An error occurred while logging out');
         });
-}
+    }
 
+    // Login user with email and password
+    function login() {
+        var email = emailInput.value;
+        var password = passwordInput.value;
 
-// onAuthStateChanged listener
-// onAuthStateChanged listener
-onAuthStateChanged(auth, (user) => {
-    const signupButton = document.getElementById('signupButton');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+        // Validate input fields
+        if (!validate(email, password)) {
+            return; // Exit function if validation fails
+        }
 
-    if (user) {
-        // User is signed in
-        const uid = user.uid;
-        console.log("User is signed in with UID:", uid);
-        // Hide login and signup buttons
-        loginButton.style.display = 'none';
-        signupButton.style.display = 'none';
-        emailInput.style.display = 'none'; // Hide email input
-        passwordInput.style.display = 'none'; // Hide password input
+        // Sign in user with email and password
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                alert('User logged in successfully');
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorCode === 'auth/invalid-credential') {
+                    alert('Wrong password and/or e-mail.')
+                } else {
+                    alert(errorMessage);
+                }
+            });
+    }
+
+    // onAuthStateChanged listener
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            const uid = user.uid;
+            console.log("User is signed in with UID:", uid);
+            // Hide login and signup buttons
+            loginButton.style.display = 'none';
+            signupButton.style.display = 'none';
+            emailInput.style.display = 'none'; // Hide email input
+            passwordInput.style.display = 'none'; // Hide password input
+            
+            // Show logout button
+            logoutButton.style.display = 'block';
+
+        } else {
+            // User is signed out
+            console.log("User is signed out");
+            // Show login and signup buttons
+            loginButton.style.display = 'block';
+            signupButton.style.display = 'block';
+            emailInput.style.display = 'block'; // Show email input
+            passwordInput.style.display = 'block'; // Show password input
         
-        // Show logout button
-        logoutButton.style.display = 'block';
+            // Hide logout button
+            logoutButton.style.display = 'none';
+        }
+    });
 
-    } else {
-        // User is signed out
-        console.log("User is signed out");
-        // Show login and signup buttons
-        loginButton.style.display = 'block';
-        signupButton.style.display = 'block';
-        emailInput.style.display = 'block'; // Show email input
-        passwordInput.style.display = 'block'; // Show password input
-    
-        // Hide logout button
-        logoutButton.style.display = 'none';
+    // Validate input fields 
+    function validate(email, password) {
+        if (email.length < 4) {
+            alert('Please enter a valid email address.');
+            return false;
+        } else if (email.indexOf('@') == -1 || email.indexOf('.') == -1) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+        if (password.length < 6) {
+            alert('Please enter a password with at least 6 characters.');
+            return false;
+        } else if (password.length > 25) {
+            alert('Please enter a password with at most 25 characters.');
+            return false;
+        }
+
+        return true;
     }
 });
-
-
-// Validate input fields 
-function validate(email, password) {
-    if (email.length < 4) {
-        alert('Please enter a valid email address.');
-        return false;
-    } else if (email.indexOf('@') == -1 || email.indexOf('.') == -1) {
-        alert('Please enter a valid email address.');
-        return false;
-    }
-    if (password.length < 6) {
-        alert('Please enter a password with at least 6 characters.');
-        return false;
-    } else if (password.length > 25) {
-        alert('Please enter a password with at most 25 characters.');
-        return false;
-    }
-
-    return true;
-}

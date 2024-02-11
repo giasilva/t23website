@@ -4,14 +4,21 @@
 <title>Login Page</title>
 <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<h1>Login Page</h1>
-<input type="email" id="email" placeholder="E-mail">
-<input type="password" id="password" placeholder="Password">
-<button id="loginButton">Login</button>
-<button id="signupButton">Sign Up</button>
-<button id="logoutButton" style="display: none;">Logout</button>
+<h1>T23 Forum</h1>
+
+<div class="loginform">
+    <input class="email" type="email" id="email" placeholder="E-mail">
+    <input class="password" type="password" id="password" placeholder="Password">
+   <div class="buttons">
+    <button class="login" id="loginButton">Login</button>
+    <button class="signup" id="signupButton">Sign Up</button>
+    <button class="logout" id="logoutButton" style="display: none;">Logout</button>
+    </div>
+    
+</div>
 
 
 <script src="firebase.js" type="module"></script>
