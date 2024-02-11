@@ -14,56 +14,41 @@ const firebaseConfig = {
     measurementId: "G-EL3E583KQN"
 };
 
+// stannar inloggad om man laddar om sidan
+setPersistence(auth, browserLocalPersistence);
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-setPersistence(auth, browserLocalPersistence)
-  .then(() => {
-    // Initialize Firebase
-    const firebaseConfig = {
-        apiKey: "your-api-key",
-        authDomain: "your-auth-domain",
-        projectId: "your-project-id",
-        storageBucket: "your-storage-bucket",
-        messagingSenderId: "your-messaging-sender-id",
-        appId: "your-app-id",
-        measurementId: "your-measurement-id"
-    };
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const database = getDatabase(app);
+// stannar inloggad om man laddar om sidan
+setPersistence(auth, browserLocalPersistence);
 
-    // Wait for the DOM to fully load
-    document.addEventListener("DOMContentLoaded", function() {
-        const signupButton = document.getElementById('signupButton');
-        const loginButton = document.getElementById('loginButton');
-        const logoutButton = document.getElementById('logoutButton');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", function() {
+    const signupButton = document.getElementById('signupButton');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
 
-        // Add event listeners for login, logout, and signup buttons
-        logoutButton.addEventListener('click', logout);
-        loginButton.addEventListener('click', login);
-        signupButton.addEventListener('click', signup);
+    // Add event listeners for login, logout, and signup buttons
+    logoutButton.addEventListener('click', logout);
+    loginButton.addEventListener('click', login);
+    signupButton.addEventListener('click', signup);
 
-        // Add event listener for Enter keypress on password input
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login(); // Call the login function when Enter key is pressed
-            }
-        });
-
-        // Initialize the UI based on the user's authentication state
-        updateUI();
+    // Add event listener for Enter keypress on password input
+    passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            login(); // Call the login function when Enter key is pressed
+        }
     });
-  })
-  .catch((error) => {
-    console.error("Error setting persistence:", error);
-  });
+
+    // Initialize the UI based on the user's authentication state
+    updateUI();
+});
 
 // Logout user
 function logout() {
