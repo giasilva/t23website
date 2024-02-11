@@ -48,6 +48,8 @@ body {
 
 .navbar .menu-items { /* MENY CHOICES */
   /* display: flex;  */
+  padding-top: 5vh;
+  padding-bottom: 5vh;
   background-color: white;
   z-index:4;
   overflow: auto;
@@ -120,17 +122,17 @@ body {
 .nav-container {
   display: block;
   position: relative;
-  height: 0px;
+  height: 0;
 }
 
 .nav-container .checkbox { /* MENU HITBOX */
-  position: fixed; 
+  position: absolute; 
   display: block;
   height: 32px;
   width: 32px;
   top: 20px;
   left: 20px;
-  z-index: 5;
+  z-index: 6;
   opacity: 0;
   cursor: pointer;
 }
@@ -139,10 +141,10 @@ body {
   display: block;
   height: 26px;
   width: 32px; 
-  position: fixed;  /*gör så att meny ikonen stannar i bakgrunden när man skrollar */
+  position: absolute;  /*gör så att meny ikonen stannar i bakgrunden när man skrollar */
   top: 17px;
   left: 20px;
-  z-index: 2;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
