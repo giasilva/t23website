@@ -30,11 +30,10 @@ body {
 .navbar .menu-items { /* MENY CHOICES */
   /* display: flex;  */
   background-color: white;
-  width: 25vw;
-  min-width: 33vh; 
+  padding-top: 3vh;
   /* box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);    gör så att menyn är transparent */
-  height: 100vh; /*gör så att menyn är lika lång som sidan */
-  min-height: 100vh; /*gör så att menyn är lika lång som sidan */
+  height: 100%;
+  width: fit-content;
   transform: translateX(-150%); /*gör så att menyn är dold från början */
   position: fixed; /*gör så att menyn inte scrollar med sidan */
   transition: transform 0.5s ease-in-out; /*gör så att menyn glider in och ut */
@@ -43,6 +42,9 @@ body {
   white-space: wrap; /*gör så att texten inte kommer utanför bakgrunden */
 }
 
+.navbar .menu-items i {
+  margin: 10px;
+}
 .navbar .menu-items a {
   text-decoration: none;
   color: #0e2431;
@@ -54,6 +56,12 @@ body {
 .navbar .menu-items a:hover {
   font-weight: bolder;
 }
+
+.navbar .menu-items a.active {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
 
 .navbar .nav-container li {
   list-style: none;
@@ -80,7 +88,7 @@ body {
 }
 
 .nav-container .checkbox { /* MENU HITBOX */
-  position: absolute;
+  position: fixed; 
   display: block;
   height: 32px;
   width: 32px;
