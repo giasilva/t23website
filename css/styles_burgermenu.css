@@ -231,6 +231,7 @@ body {
     color: #0e2431;
     padding: 0.7rem;
     position: relative;
+    cursor: pointer;
   }
   
   .menu-items a i {

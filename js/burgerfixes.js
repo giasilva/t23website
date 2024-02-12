@@ -35,3 +35,4 @@ document.addEventListener("DOMContentLoaded", function() {
       body.style.overflow = 'auto'; // Allow scrolling on the body
   });
 });
+
